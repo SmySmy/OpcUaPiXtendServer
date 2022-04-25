@@ -1,5 +1,5 @@
 .cproject
 .project
 .settings/
-build_local_Debug/
-
+*.bak
+build_*

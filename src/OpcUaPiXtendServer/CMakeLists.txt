@@ -25,10 +25,6 @@ configure_file(
     "${PROJECT_BINARY_DIR}/OpcUaPiXtendServer.service"
 )
 
-find_library(MODBUS_LIB modbus)
-message(STATUS "Modbus Library")
-message(STATUS "  ${MODBUS_LIB}")
-
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 #
@@ -42,6 +38,7 @@ include_directories(
     ${PROJECT_BINARY_DIR}
     ${Boost_INCLUDE_DIR}
     ${OPENSSL_INCLUDE_DIR}
+    ${MODBUS_INCLUDE_DIR}
 )
 
 set(HardwareAccessLibs
@@ -187,6 +184,7 @@ if (WIN32)
     install(FILES ${CONFIG_FILES} DESTINATION ${INSTALL_PREFIX}/../etc/OpcUaStack/OpcUaPiXtendServer) 
     install(FILES ${PROJECT_SOURCE_DIR}/OpcUaPiXtendServer/linux/log/README DESTINATION ${INSTALL_PREFIX}/../var/log/OpcUaStack/OpcUaPiXtendServer)
     install(DIRECTORY DESTINATION ${INSTALL_PREFIX}/../var/log/OpcUaStack/OpcUaPiXtendServer)
+    install(FILES ${MODBUS_LIB} DESTINATION ${INSTALL_PREFIX}/lib)
 else()    
     install(FILES ${CONFIG_FILES} DESTINATION ${INSTALL_PREFIX}/../etc/OpcUaStack/OpcUaPiXtendServer) 
     install(FILES ${PROJECT_SOURCE_DIR}/OpcUaPiXtendServer/linux/log/README DESTINATION /var/log/OpcUaStack/OpcUaPiXtendServer)

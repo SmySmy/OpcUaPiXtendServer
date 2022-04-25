@@ -108,10 +108,10 @@ namespace OpcUaPiXtendServer
 
         // opc ua service function
         void readValue(
-        	ApplicationReadContext* applicationReadContext
+             OpcUaStackCore::ApplicationReadContext* applicationReadContext
 		);
         void writeValue(
-        	ApplicationWriteContext* applicationWriteContext
+             OpcUaStackCore::ApplicationWriteContext* applicationWriteContext
 		);
 		void receiveMonotoredItemStart(
 			OpcUaStackCore::ApplicationMonitoredItemStartContext* monitoredItemStartContext

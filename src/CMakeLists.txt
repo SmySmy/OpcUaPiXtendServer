@@ -105,6 +105,27 @@ include(${OPCUASTACK_INSTALL_PREFIX}/usr/share/cmake/OpcUaStack${OPCUASTACK_VERS
 # -----------------------------------------------------------------------------
 include(${OPCUASTACK_INSTALL_PREFIX}/usr/share/cmake/OpcUaStack${OPCUASTACK_VERSION_MAJOR}/CMakeOpcUaStack.txt)
 
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+#
+# modbus
+#
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+find_library(MODBUS_LIB modbus)
+message(STATUS "Modbus Library")
+message(STATUS "  ${MODBUS_LIB}")
+
+if (WIN32)
+    set(MODBUS_ROOT_DIR $ENV{MODBUS_ROOT_DIR})
+    set(MODBUS_INCLUDE_DIR ${MODBUS_ROOT_DIR}/include)
+
+    message(STATUS "Modbus Include Dir")
+    message(STATUS "  ${MODBUS_INCLUDE_DIR}")
+endif ()
+
+
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 #

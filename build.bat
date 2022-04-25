@@ -23,6 +23,7 @@ set VS_GENERATOR=""
 set BUILD_TYPE="Debug"
 set JOBS=1
 set STANDALONE=OFF
+set OPTION_SPI="SPI_ON"
 
 :parse
     if "%~1"=="" goto :execute
@@ -50,13 +51,15 @@ set STANDALONE=OFF
     if "%~1"=="/j"               set JOBS=%~2
     if "%~1"=="-j"               set JOBS=%~2
     if "%~1"=="--jobs"           set JOBS=%~2
+
+    if "%~1"=="-a"               set OPTION_SPI=%~2
+    if "%~1"=="--option-spi"     set OPTION_SPI=%~2
     shift
 
     REM flags
     if "%~2"=="/S"               set STANDALONE=ON
     if "%~2"=="-S"               set STANDALONE=ON
     if "%~2"=="--standalone"     set STANDALONE=ON
-
     
     shift
     goto :parse
@@ -112,7 +115,7 @@ REM ---------------------------------------------------------------------------
 	REM
 	REM build OpcUaStack
 	REM
-	%CMAKE% %VS_GENERATOR% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -DCMAKE_CXX_FLAGS=/MP%JOBS% -DOPCUASTACK_INSTALL_PREFIX=%STACK_PREFIX% -H./src/ -B./build_local_%BUILD_DIR_SUFFIX%
+	%CMAKE% %VS_GENERATOR% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -DCMAKE_CXX_FLAGS=/MP%JOBS% -DOPCUASTACK_INSTALL_PREFIX=%STACK_PREFIX% -H./src/ -B./build_local_%BUILD_DIR_SUFFIX% -DOPTION_OPCUAPIXTENDSERVER_SPI=%OPTION_SPI%
 
 	REM
 	REM install OpcUaStack
@@ -133,7 +136,7 @@ REM ---------------------------------------------------------------------------
 	REM
 	REM build OpcUaStack
 	REM
-	%CMAKE% %VS_GENERATOR% -DCPACK_BINARY_MSI=ON -DSTANDALONE=%STANDALONE% -DCMAKE_CXX_FLAGS=/MP%JOBS% -DOPCUASTACK_INSTALL_PREFIX=%STACK_PREFIX%  -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -H./src/ -B./build_msi_%BUILD_DIR_SUFFIX%
+	%CMAKE% %VS_GENERATOR% -DCPACK_BINARY_MSI=ON -DSTANDALONE=%STANDALONE% -DCMAKE_CXX_FLAGS=/MP%JOBS% -DOPCUASTACK_INSTALL_PREFIX=%STACK_PREFIX%  -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -H./src/ -B./build_msi_%BUILD_DIR_SUFFIX% -DOPTION_OPCUAPIXTENDSERVER_SPI=%OPTION_SPI%
 
 	REM
 	REM package OpcUaStack to MSI
@@ -152,7 +155,7 @@ REM ---------------------------------------------------------------------------
 	REM
 	REM build unittest
 	REM
-	%CMAKE% %VS_GENERATOR% -DOPCUASTACK_INSTALL_PREFIX="%STACK_PREFIX%" -DCMAKE_CXX_FLAGS=/MP%JOBS% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -H./tst/ -B./build_tst_%BUILD_DIR_SUFFIX%
+	%CMAKE% %VS_GENERATOR% -DOPCUASTACK_INSTALL_PREFIX="%STACK_PREFIX%" -DCMAKE_CXX_FLAGS=/MP%JOBS% -DCMAKE_BUILD_TYPE=%BUILD_TYPE% -H./tst/ -B./build_tst_%BUILD_DIR_SUFFIX% -DOPTION_OPCUAPIXTENDSERVER_SPI=%OPTION_SPI%
 
 	REM
 	REM install OpcUaStack
@@ -187,7 +190,9 @@ REM ---------------------------------------------------------------------------
    echo.
    echo --standalone, -S, /S:  includes OpcUaStack and its dependencies in MSI package of the application
    echo.
-   echo "--jobs, -j, /j JOB_COUNT: sets the number of the jobs of make"
+   echo --jobs, -j, /j JOB_COUNT: sets the number of the jobs of make
+   echo.
+   echo --option-spi, -a OPTION_SPI:  set the spi feature (SPI_ON | SPI_OFF | SPI_DUMMY). By default, it is SPI_ON
    echo.
 
 goto:error_handle

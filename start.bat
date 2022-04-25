@@ -5,11 +5,11 @@ REM added the following string to the Path environment variable
 REM
 REM Computer -> Systemeigenschaften -> Erweiterte Systemeinstallung -> Umgebungsvariablen
 REM
-REM Name:		Path
-REM String:		C:\install\usr\lib;C:\local\boost_1_58_0\lib32-msvc-12.0;C:\install\usr\bin
+REM Name:       Path
+REM String:     C:\ASNeG\usr\bin;C:\ASNeG\usr\lib
+REM Console:    set PATH=%PATH%;C:\ASNeG\usr\bin;C:\ASNeG\usr\lib
 REM
 
-OpcUaServer3 CONSOLE C:\install\etc\OpcUaStack\OpcUaPiXtendServer\OpcUaServer.xml 
-
+OpcUaServer4 CONSOLE C:\ASNeG\etc\OpcUaStack\OpcUaPiXtendServer\OpcUaServer.xml 
 
 pause

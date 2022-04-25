@@ -56,6 +56,7 @@ The OpcUaPiXtendServer requires the modbus library. Use the following command fo
 $ sudo apt-get install libmodbus-dev
 ```
 
+
 **Install OpcUaPiXtendServer:**
 1. Clone OpcUaPiXtendServer repository
 ```
@@ -159,3 +160,28 @@ $ OpcUaServer4 ${HOME}/.ASNeG/etc/OpcUaStack/OpcUaPiXtendServer/OpcUaServer.xml
 The OPC UA Server opens the port 8898. To connect to the OPC UA Server by a OPC UA Client the client must used the Endpoint Url opc.tcp://<HOSTNAME>:8898.
 
 
+PiXtendServer on Windows
+------------------------
+
+The OpcUaPiXtendServer runs also on windows.
+
+Install Modbus library:
+1. Download libmodbus from https://github.com/stephane/libmodbus.
+2. Go to <Modbus_Root_Dir>\src\win32
+3. Execute *configure.js*
+4. Use msvc to build modbus x64 version
+   - building with VS 2022
+   - add #pragma comment(lib, "Ws2_32.lib") to a source file
+   - set Project -> Properties -> Configuration Type to DLL
+
+Build the OpcUaPiXtendServer:
+```
+$ build.bat -t local -s ~/.ASNeG -a SPI_OFF
+```
+
+Start the OpcUaPiXtendServer:
+```
+$ set PATH=%PATH%;C:\ASNeG\usr\bin;
+$ set LD_LIBRARY_PATH=%LD_LIBRARY_PATH%;C:\ASNeG\usr\lib;
+$ start.bat
+```

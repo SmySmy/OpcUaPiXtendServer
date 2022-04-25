@@ -18,6 +18,7 @@
 
 #include <OpcUaPiXtendServer/ModuleEIO/USBAccess.h>
 #include "OpcUaStackCore/Base/Log.h"
+#include <vector>
 
 using namespace OpcUaStackCore;
 
@@ -139,11 +140,13 @@ namespace OpcUaPiXtendServer
 	USBAccess::writeDigitalOut(uint8_t numberPins, bool* pins)
     {
        	// write digital output
-        uint8_t bits[numberPins] = {};
+        std::vector<uint8_t> bits;
+        bits.resize(numberPins);
+
         for (auto idx = 0; idx < numberPins; idx++) {
         	bits[idx] = pins[idx] ? 0x01 : 0x00;
         }
-        auto numBits = modbus_write_bits(ctx_, 0x00, numberPins, bits);
+        auto numBits = modbus_write_bits(ctx_, 0x00, numberPins, &bits[0]);
         if (numBits != numberPins) {
         	Log(Error, "write output bits error")
 				.parameter("Device", device_)
@@ -158,9 +161,10 @@ namespace OpcUaPiXtendServer
     bool
 	USBAccess::readDigitalOut(uint8_t numberPins, bool* pins)
     {
-    	uint8_t bits[numberPins] = {};
+        std::vector<uint8_t> bits;
+        bits.resize(numberPins);
 
-       	auto numBits = modbus_read_bits(ctx_, 0x00, numberPins, bits);
+        auto numBits = modbus_read_bits(ctx_, 0x00, numberPins, &bits[0]);
         if (numBits != numberPins) {
         	Log(Error, "read output bits error")
 				.parameter("Device", device_)
@@ -178,9 +182,10 @@ namespace OpcUaPiXtendServer
     bool
 	USBAccess::readDigitalIn(uint8_t numberPins, bool* pins)
     {
-    	uint8_t bits[numberPins] = {};
+        std::vector<uint8_t> bits;
+        bits.resize(numberPins);
 
-       	auto numBits = modbus_read_input_bits(ctx_, 0x00, numberPins, bits);
+        auto numBits = modbus_read_input_bits(ctx_, 0x00, numberPins, &bits[0]);
         if (numBits != numberPins) {
         	Log(Error, "read input bits error")
 				.parameter("Device", device_)
