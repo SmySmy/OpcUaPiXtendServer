@@ -19,6 +19,7 @@
 #ifndef __OpcUaPiXtendServer_PiXtendBase_h__
 #define __OpcUaPiXtendServer_PiXtendBase_h__
 
+#include <boost/bind/placeholders.hpp>
 #include <boost/shared_ptr.hpp>
 #include <string>
 #include <functional>
@@ -31,8 +32,8 @@
 
 #define PIXTEND_BASE_A_RF(CLASS, PIN) boost::bind(static_cast<double (CLASS::*)(void)>(&CLASS::PIN), this)
 #define PIXTEND_BASE_D_RF(CLASS, PIN) boost::bind(static_cast<bool (CLASS::*)(void)>(&CLASS::PIN), this)
-#define PIXTEND_BASE_A_WF(CLASS, PIN) boost::bind(static_cast<void (CLASS::*)(double)>(&CLASS::PIN), this, _1)
-#define PIXTEND_BASE_D_WF(CLASS, PIN) boost::bind(static_cast<void (CLASS::*)(bool)>(&CLASS::PIN), this, _1)
+#define PIXTEND_BASE_A_WF(CLASS, PIN) boost::bind(static_cast<void (CLASS::*)(double)>(&CLASS::PIN), this, boost::placeholders::_1)
+#define PIXTEND_BASE_D_WF(CLASS, PIN) boost::bind(static_cast<void (CLASS::*)(bool)>(&CLASS::PIN), this, boost::placeholders::_1)
 #define PIXTEND_BASE_B_RF(CLASS, FUNC) boost::bind(static_cast<uint8_t (CLASS::*)(void)>(&CLASS::FUNC), this)
 
 #define PIXTEND_BASE_AI(CLASS, PIN) PiXtendAnalogValueContext::createContext( \

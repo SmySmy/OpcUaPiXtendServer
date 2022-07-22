@@ -176,7 +176,7 @@ Install Modbus library:
 
 Build the OpcUaPiXtendServer:
 ```
-$ build.bat -t local -s ~/.ASNeG -a SPI_OFF
+$ build.bat -t local -a SPI_OFF
 ```
 
 Start the OpcUaPiXtendServer:

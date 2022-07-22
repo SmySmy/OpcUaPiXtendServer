@@ -215,10 +215,10 @@ namespace OpcUaPiXtendServer
                 // register service functions
                 RegisterForwardNode registerForwardNode(variable->nodeId());
                 registerForwardNode.addApplicationContext(applicationContext);
-                registerForwardNode.setReadCallback(boost::bind(&PiXtendBaseServer::readValue, this, _1));
-                registerForwardNode.setWriteCallback(boost::bind(&PiXtendBaseServer::writeValue, this, _1));
-                registerForwardNode.setMonitoredItemStartCallback(boost::bind(&PiXtendBaseServer::receiveMonotoredItemStart, this, _1));
-                registerForwardNode.setMonitoredItemStopCallback(boost::bind(&PiXtendBaseServer::receiveMonitoredItemStop, this, _1));
+                registerForwardNode.setReadCallback(boost::bind(&PiXtendBaseServer::readValue, this, boost::placeholders::_1));
+                registerForwardNode.setWriteCallback(boost::bind(&PiXtendBaseServer::writeValue, this, boost::placeholders::_1));
+                registerForwardNode.setMonitoredItemStartCallback(boost::bind(&PiXtendBaseServer::receiveMonotoredItemStart, this, boost::placeholders::_1));
+                registerForwardNode.setMonitoredItemStopCallback(boost::bind(&PiXtendBaseServer::receiveMonitoredItemStop, this, boost::placeholders::_1));
                 if (!registerForwardNode.query(applicationServiceIf_, true)) {
                     Log(Error, "register forward node response error")
                         .parameter("NodeId", variable->nodeId())
