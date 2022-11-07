@@ -47,14 +47,14 @@
             <Name>DIO-1</Name>
             <Type>DO</Type>
             <Address>0x01</Address>
-            <USBDevice Device="/dev/ttyUSB0"/>
+            <USBDevice DeviceName="/dev/ttyUSB0"/>
         </Module>
         
         <Module Enable="0">
             <Name>AIO-1</Name>
             <Type>AO</Type>
             <Address>0x03</Address>
-            <USBDevice Device="/dev/ttyUSB0"/>
+            <USBDevice DeviceName="/dev/ttyUSB0"/>
 	    </Module>
     </Modules>
 
